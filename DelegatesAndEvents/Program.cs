@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DelegatesAndEvents
 {
-    public delegate void WorkPerformedHandler(int hours, WorkType workType);
+    public delegate int WorkPerformedHandler(int hours, WorkType workType);
 
     class Program
     {
@@ -26,7 +26,9 @@ namespace DelegatesAndEvents
             //del1 += del3;
             del1 += del2 + del3;
 
-            del1(10, WorkType.GenerateReports);
+            /* Last delegate returns the value for this block of code*/
+            int finalHours = del1(10, WorkType.GenerateReports);
+            Console.WriteLine(finalHours);
 
             Console.Read();
         }
@@ -36,19 +38,22 @@ namespace DelegatesAndEvents
             del(5, WorkType.GoToMeetings);
         }
 
-        static void WorkPerformed1(int hours, WorkType workType)
+        static int WorkPerformed1(int hours, WorkType workType)
         {
             Console.WriteLine("WorkPerformed1 called " + hours.ToString());
+            return hours + 1;
         }
 
-        static void WorkPerformed2(int hours, WorkType workType)
+        static int WorkPerformed2(int hours, WorkType workType)
         {
             Console.WriteLine("WorkPerformed2 called " + hours.ToString());
+            return hours + 2;
         }
 
-        static void WorkPerformed3(int hours, WorkType workType)
+        static int WorkPerformed3(int hours, WorkType workType)
         {
             Console.WriteLine("WorkPerformed3 called " + hours.ToString());
+            return hours + 3;
         }
     }
 
