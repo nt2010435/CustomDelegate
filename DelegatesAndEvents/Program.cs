@@ -6,12 +6,21 @@ using System.Threading.Tasks;
 
 namespace DelegatesAndEvents
 {
+    public delegate int BizRulesDelegate(int x, int y);
 
     class Program
     {
 
         static void Main(string[] args)
         {
+            //Lambdas with custom delegates to pass in Business rule instead of concrete defining business rules in 'ProcessData' class
+            BizRulesDelegate addDel = (x, y) => x + y;
+            BizRulesDelegate multiplyDel = (x, y) => x * y;
+
+            var data = new ProcessData();
+            data.Process(2, 3, addDel);
+            data.Process(4, 6, multiplyDel);
+
             var worker = new Worker();
             //Lambdas (inline method, parameters, body)
             worker.WorkPerformed += (s, e) =>
