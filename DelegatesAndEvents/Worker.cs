@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace DelegatesAndEvents
 {
-    public delegate int WorkPerformedHandler(int hours, WorkType workType);
+    //public delegate int WorkPerformedHandler(object sender, WorkPerformedEventArgs e);
 
     public class Worker
     {
-        public event WorkPerformedHandler WorkPerformed; //Event definition
+        //public event WorkPerformedHandler WorkPerformed; //Event definition
+        public event EventHandler<WorkPerformedEventArgs> WorkPerformed; //Event definition
         public event EventHandler WorkCompleted;
 
         public void DoWork(int hours, WorkType workType)
@@ -31,10 +32,11 @@ namespace DelegatesAndEvents
             //    WorkPerformed(hours, workType);
             //}
 
-            var del = WorkPerformed as WorkPerformedHandler;
+            //var del = WorkPerformed as WorkPerformedHandler;
+            var del = WorkPerformed as EventHandler<WorkPerformedEventArgs>;
             if (del != null)
             {
-                del(hours, workType);
+                del(this, new WorkPerformedEventArgs(hours, workType));
             }
         }
 
