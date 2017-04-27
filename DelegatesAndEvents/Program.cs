@@ -30,15 +30,15 @@ namespace DelegatesAndEvents
             //Console.WriteLine(finalHours);
 
             var worker = new Worker();
-            worker.WorkPerformed += new EventHandler<WorkPerformedEventArgs>(Worker_WorkPerformed);
-            worker.WorkCompleted += new EventHandler(Worker_WorkCompleted);
+            worker.WorkPerformed += Worker_WorkPerformed; //Delegate inference of adding a delegate
+            worker.WorkCompleted += Worker_WorkCompleted; //Delegate inference of adding a delegate
 
             worker.DoWork(8, WorkType.GenerateReports);
 
             Console.Read();
         }
 
-        static void Worker_WorkPerformed(object sender, WorkPerformedEventArgs e)
+        private static void Worker_WorkPerformed(object sender, WorkPerformedEventArgs e)
         {
             Console.WriteLine("Hours worked: " + e.Hours + " " + e.WorkType);
         }
