@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DelegatesAndEvents
 {
-    //public delegate int BizRulesDelegate(int x, int y);
+    public delegate int BizRulesDelegate(int x, int y);
 
     class Program
     {
@@ -14,19 +14,21 @@ namespace DelegatesAndEvents
         static void Main(string[] args)
         {
             //Lambdas with custom delegates to pass in Business rule instead of concrete defining business rules in 'ProcessData' class
-            //BizRulesDelegate addDel = (x, y) => x + y;
-            //BizRulesDelegate multiplyDel = (x, y) => x * y;
-
+            BizRulesDelegate addDel = (x, y) => x + y;
+            BizRulesDelegate multiplyDel = (x, y) => x * y;
             var data = new ProcessData();
-            //data.Process(2, 3, addDel);
-            //data.Process(4, 6, multiplyDel);
-
+            data.Process(2, 3, addDel);
+            
+            //Func<T, TResult> delegates
+            Func<int, int, int> funcAddDel = (x, y) => x + y;
+            Func<int, int, int> funcMultiplyDel = (x, y) => x * y;
+            data.ProcessFunc(4, 3, funcAddDel);
+            
             //Action<T> delegates
             Action<int, int> myAction = (x, y) => Console.WriteLine(x + y);
             Action<int, int> myMultiplyAction = (x, y) => Console.WriteLine(x * y);
-            data.ProcessAction(2, 3, myAction);
-
-
+            data.ProcessAction(5, 4, myAction);
+            
             var worker = new Worker();
             //Lambdas (inline method, parameters, body)
             worker.WorkPerformed += (s, e) =>
