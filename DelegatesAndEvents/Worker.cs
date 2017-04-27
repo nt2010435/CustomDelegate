@@ -18,6 +18,7 @@ namespace DelegatesAndEvents
         {
             for (int i = 0; i < hours; i++)
             {
+                System.Threading.Thread.Sleep(1000);
                 //Raise event
                 OnWorkPerformed(i + 1, workType);
             }
